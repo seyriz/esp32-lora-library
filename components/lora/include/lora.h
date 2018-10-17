@@ -1,6 +1,7 @@
 #ifndef __LORA_H__
 #define __LORA_H__
 
+#include "freertos/queue.h"
 #include "driver/spi_master.h"
 #include "driver/gpio.h"
 
@@ -37,7 +38,6 @@ true, \
 E_LORA_POWER_LEVEL_MIN, \
 1024 \
 };
-
 
 
 typedef enum {
@@ -103,8 +103,9 @@ typedef struct {
     bool using_preconfigured_spi_bus;
     bool using_preconfigured_spi_device;
     bool crc_enabled;
-    int tx_power;
-    int rx_buffer_size;
+    lora_esp32_power_level tx_power;
+    size_t rx_buffer_size;
+    QueueHandle_t rx_queue;
 } lora_esp32_param_t;
 
 
@@ -132,6 +133,7 @@ double lora_packet_snr();
 void lora_close();
 int lora_initialized();
 void lora_dump_registers();
+esp_err_t lora_start_rx_task();
 
 
 #if defined(__cplusplus)
