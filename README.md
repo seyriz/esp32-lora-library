@@ -89,3 +89,10 @@ MOSI | IO12
 SCK | IO14
 
 but you can reconfigure the pins using ```make menuconfig``` and changing the options in the "LoRa Options --->"
+
+## TODOs
+
+- [ ] lora_esp32_param_t preconfigured macro
+- [ ] Read thread
+- [ ] TX queue
+- [ ] RX queue
